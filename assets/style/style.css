@@ -1,0 +1,48 @@
+.typewriter {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .words {
+      display: inline-block;
+      overflow: hidden;
+      border-right: 2px solid #fff; /* cursor */
+      white-space: nowrap;
+      animation: blinkCursor 0.8s steps(1) infinite;
+    }
+
+    .words span {
+      position: absolute;
+      opacity: 0;
+    }
+
+    /* type & erase effect */
+    .words span {
+      animation: typing 6s steps(12, end) infinite;
+    }
+
+    .words span:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .words span:nth-child(2) {
+      animation-delay: 6s;
+    }
+    .words span:nth-child(3) {
+      animation-delay: 12s;
+    }
+    .words span:nth-child(4) {
+      animation-delay: 18s;
+    }
+
+    @keyframes typing {
+      0% { opacity: 1; width: 0ch; }
+      20% { opacity: 1; width: 12ch; }  /* typing */
+      40% { opacity: 1; width: 12ch; }  /* hold */
+      60% { opacity: 1; width: 0ch; }   /* erase */
+      100% { opacity: 0; width: 0ch; }
+    }
+
+    @keyframes blinkCursor {
+      50% { border-color: transparent; }
+    }
