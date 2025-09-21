@@ -149,11 +149,13 @@
           class="w-12 h-12 object-cover rounded-md border border-white/20 shadow-md"
         >
       </div>
-      <div class="font-cinzel text-white text-1.5xl font-bold">HAR<Span class="text-edgeOrange">!</Span>HARAN R</div>
+      <div class="font-cinzel text-white text-xl font-bold">
+        HAR<span class="text-edgeOrange">!</span>HARAN R
+      </div>
     </div>
 
-    <!-- Middle: Navigation -->
-    <nav class="hidden md:flex items-center gap-8 text-sm text-gray-300 text-lg">
+    <!-- Middle: Navigation (Desktop Only) -->
+    <nav class="hidden md:flex items-center gap-8 text-gray-300 text-lg">
       <a href="#about" class="hover:text-orange-500 hover:font-bold transition">About</a>
       <a href="#skills" class="hover:text-orange-500 hover:font-bold transition">Skills</a>
       <a href="#projects" class="hover:text-orange-500 hover:font-bold transition">Projects</a>
@@ -161,8 +163,8 @@
       <a href="#contact" class="hover:text-orange-500 hover:font-bold transition">Contact</a>
     </nav>
 
-    <!-- Right: Button -->
-    <div class="flex items-center gap-3">
+    <!-- Right: Button (Desktop) -->
+    <div class="hidden md:flex items-center gap-3">
       <a 
         href="#contact"
         class="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
@@ -170,8 +172,29 @@
         Get in touch
       </a>
     </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button id="menu-btn" class="md:hidden text-gray-300 text-3xl focus:outline-none">
+      ☰
+    </button>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="menu" class="hidden md:hidden bg-black/95 text-gray-300 flex flex-col items-center space-y-6 py-6">
+    <a href="#about" class="hover:text-orange-500">About</a>
+    <a href="#skills" class="hover:text-orange-500">Skills</a>
+    <a href="#projects" class="hover:text-orange-500">Projects</a>
+    <a href="#Experience" class="hover:text-orange-500">Experience</a>
+    <a href="#contact" class="hover:text-orange-500">Contact</a>
+    <a 
+      href="#contact"
+      class="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
+    >
+      Get in touch
+    </a>
   </div>
 </header>
+
 
     <!-- Hero -->
     <section class="min-h-[72vh] flex items-center">
@@ -250,7 +273,7 @@
               <div class="font-semibold">B.Sc. Computer Science</div>
               <div class="text-orange-500 text-sm mt-2">Vivekananada College, Madurai.</div>
               <div class="text-white text-sm font-courier flex gap-2">
-              <span class="py-1 font-courier text-white text-xs">2024 - 2026</span>
+              <span class="py-1 font-courier text-white text-xs">2021 - 2024</span>
               <span class="px-2 py-1 font-courier text-white text-xs">First Class</span>
               </div>
             </div>
@@ -269,7 +292,7 @@
     </section>
 
     <!-- Skills -->
-<section id="skills" class="py-10 scroll-mt-20">
+<section id="skills" class="mx-auto px-6 py-12 scroll-mt-20">
   <div class="max-w-6xl mx-auto px-4">
     <h2 class="text-2xl font-semibold mb-6">Skills</h2>
 
@@ -406,7 +429,7 @@
 
 <!-- Projects -->
 <section id="projects" class="max-w-6xl mx-auto px-6 py-12 scroll-mt-20">
-  <h2 class="text-2xl font-semibold reveal mb-6 mt-10">My Projects</h2>
+  <h2 class="text-2xl font-semibold reveal mb-6">My Projects</h2>
 
   <!-- Grid with 3 columns: each card will span 2 cols -->
   <div class="grid md:grid-cols-3 gap-8">
@@ -471,16 +494,21 @@
     <section id="Experience" class="max-w-6xl mx-auto px-6 py-12 scroll-mt-20">
       <h2 class="text-2xl font-semibold reveal">Experience</h2>
       <ol class="mt-6 border-l border-white/6 pl-6 space-y-6">
-        <li class="reveal">
-          <div class="text-edgeOrange font-semibold">Viswa Digital Technology</div>
-          <div class="font-medium">Web Design</div>
-          <div class="text-edgeMuted text-sm mt-3">2025</div>
-        </li>
-        <li class="reveal">
-          <div class="text-edgeOrange font-semibold">Arttifial Tech</div>
-          <div class="font-medium">Game Development</div>
-          <div class="text-edgeMuted text-sm mt-3">2025</div>
-        </li>
+   <li class="reveal">
+  <div class="text-edgeOrange font-semibold">Internship</div>
+  <div class="font-medium">Viswa Digital Technology (Remote)</div>
+  <div class="text-edgeMuted text-sm mt-1">
+    Web Design Intern • May 2025
+  </div>
+</li>
+
+   <li class="reveal">
+  <div class="text-edgeOrange font-semibold">Internship</div>
+  <div class="font-medium">Arttifial Tech (Remote)</div>
+  <div class="text-edgeMuted text-sm mt-1">
+    Game Development • May 2025
+  </div>
+</li>
       </ol>
     </section>
 
@@ -609,6 +637,29 @@
       });
     });
   })();
+
+const menuBtn = document.getElementById('menu-btn');
+const menu = document.getElementById('menu');
+
+menuBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // stop bubbling
+  menu.classList.toggle('hidden');
+});
+
+// If user clicks outside → close menu
+document.addEventListener('click', (e) => {
+  if (!menu.contains(e.target) && e.target !== menuBtn) {
+    menu.classList.add('hidden');
+  }
+});
+
+// Also close menu when clicking a link inside menu
+menu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    menu.classList.add('hidden');
+  });
+});
+
   </script>
 </body>
 </html>
