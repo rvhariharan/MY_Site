@@ -14,7 +14,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>HAR!HARAN R — Portfolio</title>
-<link rel="stylesheet" type="image" href="./assets/image/Hari_Name - Copy.jpg">
+<link rel="icon" type="image" href="./assets/image/Hari_Name - Copy.jpg">
   <!-- Tailwind Play CDN (fast prototype, no build) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -174,21 +174,22 @@
     </div>
 
     <!-- Mobile Hamburger Button -->
-    <button id="menu-btn" class="md:hidden text-gray-300 text-3xl focus:outline-none">
+    <button id="menu-btn" aria-expanded="false" aria-controls="menu" class="md:hidden text-gray-300 text-3xl focus:outline-none">
       ☰
     </button>
   </div>
 
-  <!-- Mobile Menu (hidden by default) -->
-  <div id="menu" class="hidden md:hidden bg-black/95 text-gray-300 flex flex-col items-center space-y-6 py-6">
-    <a href="#about" class="hover:text-orange-500">About</a>
-    <a href="#skills" class="hover:text-orange-500">Skills</a>
-    <a href="#projects" class="hover:text-orange-500">Projects</a>
-    <a href="#Experience" class="hover:text-orange-500">Experience</a>
-    <a href="#contact" class="hover:text-orange-500">Contact</a>
+  <!-- Mobile Menu (hidden by default) - overlay style for small screens -->
+  <div id="menu" role="menu" aria-hidden="true" class="hidden md:hidden fixed left-4 right-4 top-20 bg-black/95 text-gray-300 flex flex-col items-center space-y-6 py-6 rounded-lg z-50">
+    <a href="#about" class="hover:text-orange-500" role="menuitem">About</a>
+    <a href="#skills" class="hover:text-orange-500" role="menuitem">Skills</a>
+    <a href="#projects" class="hover:text-orange-500" role="menuitem">Projects</a>
+    <a href="#Experience" class="hover:text-orange-500" role="menuitem">Experience</a>
+    <a href="#contact" class="hover:text-orange-500" role="menuitem">Contact</a>
     <a 
       href="#contact"
       class="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
+      role="menuitem"
     >
       Get in touch
     </a>
@@ -520,7 +521,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
     <!-- left: form -->
     <div class="md:col-span-2 reveal min-w-0">
-      <h2 class="text-xl sm:text-2xl font-semibold">Contact</h2>
+      <h2 class="text-2xl sm:text-2xl font-semibold">Contact</h2>
       <p class="text-edgeMuted mt-2 text-sm sm:text-base">Here are my contact details; you can reach out to me through them.</p>
 
       <form id="contactForm" class="mt-6 grid sm:grid-cols-2 gap-4">
@@ -554,112 +555,6 @@
       </div>
     </footer>
 
-  </div>
-
-  <!-- Small JS for loader, reveal, smooth nav -->
-  <script>
-  // Loader simulation
-  const loader = document.getElementById('loader');
-  const loaderBar = document.getElementById('loader-bar');
-  setTimeout(() => loaderBar.style.width = '45%', 200);
-  setTimeout(() => loaderBar.style.width = '78%', 600);
-  setTimeout(() => {
-    loaderBar.style.width = '100%';
-    setTimeout(() => {
-      loader.style.opacity = '0';
-      loader.style.pointerEvents = 'none';
-      document.getElementById('site').style.opacity = '1';
-      setTimeout(()=> loader.remove(), 600);
-    }, 300);
-  }, 1200);
-
-  // Intersection reveal
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('visible');
-    });
-  }, {threshold: 0.12});
-
-  // attach to all reveal elements
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-  // Footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-
-    // smooth nav behavior
-    document.querySelectorAll('a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', (ev)=>{
-        const href = a.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          ev.preventDefault();
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
-        }
-      });
-    });
-
-    // set year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // optional: allow drag-and-drop photo replace (client-side)
-    const photo = document.getElementById('me-photo');
-    photo.addEventListener('click', () => alert('Replace this image by changing the src of #me-photo in the HTML (or drag & drop if you implement it).'));
-
-      // Toggle sway only when grid is in view AND screen is wide enough
-  (function(){
-    const grid = document.querySelector('.skills-grid');
-    if (!grid) return;
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        const cols = document.querySelectorAll('.skills-col');
-        // only animate on >= 640px and if user NOT prefer reduced motion
-        if (entry.isIntersecting && window.innerWidth >= 640 && !prefersReduced) {
-          cols.forEach(c => c.classList.add('sway'));
-        } else {
-          cols.forEach(c => c.classList.remove('sway'));
-        }
-      });
-    }, { threshold: 0.12 });
-    observer.observe(grid);
-
-    // keyboard support: Enter/Space triggers a little press animation
-    document.querySelectorAll('.skill-item[tabindex]').forEach(item => {
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          item.classList.add('press');
-          setTimeout(()=> item.classList.remove('press'), 150);
-          // optional: open details / modal here
-        }
-      });
-    });
-  })();
-
-const menuBtn = document.getElementById('menu-btn');
-const menu = document.getElementById('menu');
-
-menuBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // stop bubbling
-  menu.classList.toggle('hidden');
-});
-
-// If user clicks outside → close menu
-document.addEventListener('click', (e) => {
-  if (!menu.contains(e.target) && e.target !== menuBtn) {
-    menu.classList.add('hidden');
-  }
-});
-
-// Also close menu when clicking a link inside menu
-menu.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    menu.classList.add('hidden');
-  });
-});
-
-  </script>
+<script src="js/portfolio.js"></script>    
 </body>
 </html>
