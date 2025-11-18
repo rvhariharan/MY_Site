@@ -149,9 +149,9 @@
           class="w-12 h-12 object-cover rounded-md border border-white/20 shadow-md"
         >
       </div>
-      <div class="font-cinzel text-white text-xl font-bold">
-        HAR<span class="text-edgeOrange">!</span>HARAN R
-      </div>
+<a href="#hariharan" class="font-cinzel text-white text-xl font-bold">
+  HAR<span class="text-edgeOrange">!</span>HARAN R
+</a>
     </div>
 
     <!-- Middle: Navigation (Desktop Only) -->
@@ -198,7 +198,7 @@
 
 
     <!-- Hero -->
-    <section class="min-h-[72vh] flex items-center">
+    <section id="hariharan" class="min-h-[72vh] flex items-center">
       <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
         <div class="space-y-6">
           <div class="inline-flex items-center gap-3 text-sm edge-acrylic px-3 py-1 rounded-full text-edgeMuted">
@@ -223,35 +223,60 @@
         </div>
 
         <!-- Hero visual & photo area -->
-        <div class="relative">
-          <!-- decorative glass card -->
-          <div class="rounded-2xl edge-acrylic border border-white/6 p-6 reveal">
-            <div class="flex items-center gap-4">
-              <!-- Replace the src with your photo path or URL -->
-              <img id="me-photo" src="./assets/image/hari.jpeg" alt="Hariharan R" class="w-36 h-36 object-cover rounded-lg border border-white/6" />
-              <div>
-                <div class="text-lg font-semibold">HARIHARAN R</div>
-                <div class="text-edgeMuted text-sm">M.Sc. Computer Science.</div>
-<div class="mt-5 flex gap-4">
-  <a href="https://www.linkedin.com/in/hariharan-r-5812a02a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
-    <img src="./public/linkedin.svg" alt="LinkedIn" class="w-6 h-6">
-  </a>
-  <a href="https://x.com/rvhariharan2004?t=oEO57VNEDiapPAGR1EdF4w&s=08">
-    <img src="./public/x.svg" alt="X" class="w-6 h-6">
-  </a>
-    <a href="https://github.com/rvhariharan/">
-    <img src="./public/github1.svg" alt="github" class="w-6 h-6">
-  </a>
-      <a href="https://www.threads.net/@r.hariharan_xx7">
-    <img src="./public/threads.svg" alt="Threds" class="w-6 h-6">
-  </a>
-</div>
-              </div>
-            </div>
-          <!-- soft glow circle -->
-          <div class="pointer-events-none absolute -right-8 -bottom-8 w-44 h-44 rounded-full blur-3xl bg-edgeOrange/20"></div>
+<!-- Hero visual & photo area -->
+<div class="relative group">
+  <div
+    class="rounded-2xl edge-acrylic border border-white/20 p-6 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:border-edgeOrange/40 group-hover:shadow-[0_0_60px_rgba(255,106,0,0.25)] overflow-hidden relative"
+  >
+    <div class="flex items-center gap-4">
+
+      <!-- Photo Card (Hover Image Change) -->
+      <div
+        class="w-36 h-36 rounded-xl overflow-hidden relative transition-all duration-700 ease-out"
+      >
+        <!-- Default image -->
+        <img
+          src="./assets/image/me-photo.jpg"
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-110"
+        />
+
+        <!-- Hover image (like dev1/dev2) -->
+        <img
+          src="./assets/image/me-photo2-copy.jpg"
+          class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-110 group-hover:translate-x-2"
+        />
+      </div>
+
+      <div>
+        <div class="text-lg font-semibold tracking-wide">HARIHARAN R</div>
+        <div class="text-edgeMuted text-sm">M.Sc. Computer Science.</div>
+
+        <!-- Social icons -->
+        <div class="mt-5 flex gap-4">
+          <a href="https://www.linkedin.com/in/hariharan-r-5812a02a5">
+            <img src="./public/linkedin.svg" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://x.com/rvhariharan2004">
+            <img src="./public/x.svg" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://github.com/rvhariharan">
+            <img src="./public/github1.svg" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://www.threads.net/@r.hariharan_xx7">
+            <img src="./public/threads.svg" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
         </div>
       </div>
+
+    </div>
+
+    <!-- soft glow circle -->
+    <div
+      class="pointer-events-none absolute -right-8 -bottom-8 w-44 h-44 rounded-full blur-3xl bg-edgeOrange/20 transition-all duration-700 group-hover:scale-[1.4] group-hover:bg-edgeOrange/30"
+    ></div>
+  </div>
+</div>
+
     </section>
 
     <!-- About -->
@@ -450,7 +475,7 @@
       </div>
       <div class="mt-6 flex justify-center gap-6 text-sm">
         <a href="https://github.com/rvhariharan/pdf-to-audio" target="_blank" class="text-orange-500 hover:underline">GitHub</a>
-        <a href="#" class="text-orange-500 hover:underline">Live Demo</a>
+        <a href="https://pdf-to-audio-0kd4.onrender.com/" class="text-orange-500 hover:underline">Live Demo</a>
       </div>
     </article>
 
@@ -514,7 +539,6 @@
     </section>
 
     <!-- Contact -->
-<!-- (put this in <head>) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <section id="contact" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 scroll-mt-20">
