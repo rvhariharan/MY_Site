@@ -4,7 +4,7 @@ This is my personal portfolio website built using **HTML, Tailwind CSS, and Java
 It showcases my skills, projects, and contact information.  
 
 ## 🚀 Live Demo
-👉 [View My Portfolio](https://rvhariharan.github.io/MY_Site/)  
+👉 [View My Portfolio](www.rvhariharan.tech)  
 
 ## 📂 Features
 - Responsive design for desktop and mobile 📱💻  
