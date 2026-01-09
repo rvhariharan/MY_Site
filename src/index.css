@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070707;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FF4B2B;
+}
+
+/* Small extra styles for prototype */
+.edge-acrylic {
+  background: linear-gradient(180deg, rgba(255, 75, 43, 0.06), rgba(255, 75, 43, 0.02));
+  backdrop-filter: blur(6px);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(.995);
+  transition: all .6s cubic-bezier(.2, .9, .2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* desktop sway */
+@keyframes sway {
+  0% {
+    transform: translateX(-8px);
+  }
+
+  50% {
+    transform: translateX(8px);
+  }
+
+  100% {
+    transform: translateX(-8px);
+  }
+}
+
+/* smaller amplitude for phones */
+@keyframes sway-mobile {
+  0% {
+    transform: translateX(-4px);
+  }
+
+  50% {
+    transform: translateX(4px);
+  }
+
+  100% {
+    transform: translateX(-4px);
+  }
+}
+
+.skills-col.sway {
+  animation: sway var(--s-duration, 6.5s) ease-in-out infinite;
+}
+
+/* use smaller sway on narrow screens */
+@media (max-width: 600px) {
+  .skills-col.sway {
+    animation-name: sway-mobile;
+  }
+}
+
+/* column speed/direction variations */
+.skills-grid>.skills-col:nth-child(1).sway {
+  --s-duration: 6s;
+  animation-direction: alternate;
+}
+
+.skills-grid>.skills-col:nth-child(2).sway {
+  --s-duration: 7s;
+  animation-direction: alternate-reverse;
+}
+
+.skills-grid>.skills-col:nth-child(3).sway {
+  --s-duration: 6.4s;
+  animation-direction: alternate;
+}
+
+.skills-grid>.skills-col:nth-child(4).sway {
+  --s-duration: 7.6s;
+  animation-direction: alternate-reverse;
+}
+
+/* touch + keyboard friendly tiles */
+.skill-item {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .22s cubic-bezier(.2, .9, .2, 1), box-shadow .22s;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skill-item:active {
+  transform: scale(.97);
+}
+
+.skill-item:focus {
+  outline: none;
+  box-shadow: 0 0 0 6px rgba(255, 75, 43, .10);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* hover push left/right (keeps playful movement on desktop) */
+.skills-grid>.skills-col:nth-child(even) .skill-item:hover {
+  transform: translateX(10px) scale(1.03);
+}
+
+.skills-grid>.skills-col:nth-child(odd) .skill-item:hover {
+  transform: translateX(-10px) scale(1.03);
+}
+
+/* responsive spacing */
+.skill-label {
+  font-size: .85rem;
+  margin-top: .45rem;
+  color: rgba(255, 255, 255, .9);
+  text-align: center;
+}
+
+/* accessibility: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .skills-col.sway {
+    animation: none !important;
+  }
+
+  .skill-item {
+    transition: none !important;
+  }
+}
