@@ -1,0 +1,601 @@
+<!-- Save as index.html and open in browser -->
+<!doctype html>
+<html lang="en">
+<head>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HAR!HARAN R — Portfolio</title>
+<link rel="icon" type="image" href="./assets/image/Hari_Name - Copy.jpg">
+  <!-- Tailwind Play CDN (fast prototype, no build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind custom theme tokens (play CDN)
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            edgeOrange: '#FF4B2B',   // orangered accent
+            edgeBlack: '#070707',
+            edgeGray: '#0f1724',
+            edgeMuted: '#9ca3af'
+          },
+          fontFamily: {
+            heading: ['Roboto Slab', 'serif'],
+            body: ['Inter', 'system-ui', 'sans-serif'],
+            cinzel: ['"Cinzel Decorative"', 'cursive'],
+            courier: ['"Courier Prime"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Roboto+Slab:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (icons) -->
+  <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
+  <!-- If you don't have a kit, use this alternative (free icons): -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" /> -->
+
+  <style>
+    /* Small extra styles for prototype */
+    .edge-acrylic {
+      background: linear-gradient(180deg, rgba(255,75,43,0.06), rgba(255,75,43,0.02));
+      backdrop-filter: blur(6px);
+    }
+    .reveal { opacity: 0; transform: translateY(16px) scale(.995); transition: all .6s cubic-bezier(.2,.9,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+ /* desktop sway */
+  @keyframes sway {
+    0% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    100% { transform: translateX(-8px); }
+  }
+  /* smaller amplitude for phones */
+  @keyframes sway-mobile {
+    0% { transform: translateX(-4px); }
+    50% { transform: translateX(4px); }
+    100% { transform: translateX(-4px); }
+  }
+
+  .skills-col.sway { animation: sway var(--s-duration, 6.5s) ease-in-out infinite; }
+  /* use smaller sway on narrow screens */
+  @media (max-width: 600px) {
+    .skills-col.sway { animation-name: sway-mobile; }
+  }
+
+  /* column speed/direction variations */
+  .skills-grid > .skills-col:nth-child(1).sway { --s-duration: 6s; animation-direction: alternate; }
+  .skills-grid > .skills-col:nth-child(2).sway { --s-duration: 7s; animation-direction: alternate-reverse; }
+  .skills-grid > .skills-col:nth-child(3).sway { --s-duration: 6.4s; animation-direction: alternate; }
+  .skills-grid > .skills-col:nth-child(4).sway { --s-duration: 7.6s; animation-direction: alternate-reverse; }
+
+  /* touch + keyboard friendly tiles */
+  .skill-item {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .skill-item:active { transform: scale(.97); }
+  .skill-item:focus { outline: none; box-shadow: 0 0 0 6px rgba(255,75,43,.10); transform: translateY(-4px) scale(1.02); }
+
+  /* hover push left/right (keeps playful movement on desktop) */
+  .skills-grid > .skills-col:nth-child(even) .skill-item:hover { transform: translateX(10px) scale(1.03); }
+  .skills-grid > .skills-col:nth-child(odd)  .skill-item:hover { transform: translateX(-10px) scale(1.03); }
+
+  /* responsive spacing */
+  .skill-label { font-size: .85rem; margin-top: .45rem; color: rgba(255,255,255,.9); text-align:center; }
+
+  /* accessibility: reduce motion */
+  @media (prefers-reduced-motion: reduce) {
+    .skills-col.sway { animation: none !important; }
+    .skill-item { transition: none !important; }
+  }
+  </style>
+</head>
+<body class="font-body bg-edgeBlack text-white selection:bg-edgeOrange selection:text-black">
+
+  <!-- Loading overlay -->
+<div id="loader" class="fixed inset-0 z-50 flex items-center justify-center bg-edgeBlack">
+  <div class="flex flex-col items-center gap-6">
+    <!-- Square logo directly -->
+    <img
+      id="loader-logo"
+      src="./assets/image/Hari_Name - Copy.jpg"
+      alt="Site logo"
+      class="animate-bounce"
+      style="width:84px; height:84px; object-fit:contain; display:block;"
+      decoding="async"
+    />
+
+    <!-- progress bar -->
+    <div class="w-64 h-2 bg-white/10 rounded-full overflow-hidden">
+      <div id="loader-bar" class="h-2 bg-edgeOrange w-0 rounded-full transition-all duration-700"></div>
+    </div>
+
+    <div class="text-sm text-edgeMuted">Preparing…</div>
+  </div>
+</div>
+
+
+
+  <!-- Page wrapper -->
+  <div id="site" class="opacity-0 transition-opacity duration-500">
+
+<!-- Top nav -->
+<header class="sticky top-0 z-40 edge-acrylic border-b border-white/10 backdrop-blur-md">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    
+    <!-- Left: Logo + Name -->
+    <div class="flex items-center gap-3">
+      <div>
+        <img 
+          src="./assets/image/Hari_Name.jpg" 
+          alt="Logo"
+          class="w-12 h-12 object-cover rounded-md border border-white/20 shadow-md"
+        >
+      </div>
+<a href="#hariharan" class="font-cinzel text-white text-xl font-bold">
+  HAR<span class="text-edgeOrange">!</span>HARAN R
+</a>
+    </div>
+
+    <!-- Middle: Navigation (Desktop Only) -->
+    <nav class="hidden md:flex items-center gap-8 text-gray-300 text-lg">
+      <a href="#about" class="hover:text-orange-500 hover:font-bold transition">About</a>
+      <a href="#skills" class="hover:text-orange-500 hover:font-bold transition">Skills</a>
+      <a href="#projects" class="hover:text-orange-500 hover:font-bold transition">Projects</a>
+      <a href="#Experience" class="hover:text-orange-500 hover:font-bold transition">Experience</a>
+      <a href="#contact" class="hover:text-orange-500 hover:font-bold transition">Contact</a>
+    </nav>
+
+    <!-- Right: Button (Desktop) -->
+    <div class="hidden md:flex items-center gap-3">
+      <a 
+        href="#contact"
+        class="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
+      >
+        Get in touch
+      </a>
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button id="menu-btn" aria-expanded="false" aria-controls="menu" class="md:hidden text-gray-300 text-3xl focus:outline-none">
+      ☰
+    </button>
+  </div>
+
+  <!-- Mobile Menu (hidden by default) - overlay style for small screens -->
+  <div id="menu" role="menu" aria-hidden="true" class="hidden md:hidden fixed left-4 right-4 top-20 bg-black/95 text-gray-300 flex flex-col items-center space-y-6 py-6 rounded-lg z-50">
+    <a href="#about" class="hover:text-orange-500" role="menuitem">About</a>
+    <a href="#skills" class="hover:text-orange-500" role="menuitem">Skills</a>
+    <a href="#projects" class="hover:text-orange-500" role="menuitem">Projects</a>
+    <a href="#Experience" class="hover:text-orange-500" role="menuitem">Experience</a>
+    <a href="#contact" class="hover:text-orange-500" role="menuitem">Contact</a>
+    <a 
+      href="#contact"
+      class="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
+      role="menuitem"
+    >
+      Get in touch
+    </a>
+  </div>
+</header>
+
+
+    <!-- Hero -->
+    <section id="hariharan" class="min-h-[72vh] flex items-center">
+      <div class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <div class="inline-flex items-center gap-3 text-sm edge-acrylic px-3 py-1 rounded-full text-edgeMuted">
+            <span class="font-courier"> <span class="font-extrabold">&gt; </span>HELLO, WORLD!_ </span>
+          </div>
+          <h1 class="text-4xl md:text-6xl font-heading leading-tight">
+            I'm <span class="text-edgeOrange">Hariharan</span>
+          </h1>
+            <div class="text-edgeMuted md:text-xl font-semibold h-10">
+    <span class="animate-typing pr-2">
+      A Web Developer & Web Designer
+    </span>
+  </div>
+          <p class="text-edgeMuted max-w-xl italic ">
+            A passionate Full stack developer with project experience in Web Development & Desktop Applications Development. I enjoy building simple web apps, learning new tech. 
+          </p>
+
+          <div class="flex gap-4 items-center">
+            <a href="#projects" class="px-4 py-3 text-orange-500 rounded-full border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition">View Projects</a>
+            <a href="#contact" class="px-4 py-3 text-orange-500 rounded-full border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition">Contact</a>
+          </div>
+        </div>
+
+        <!-- Hero visual & photo area -->
+<!-- Hero visual & photo area -->
+<div class="relative group">
+  <div
+    class="rounded-2xl edge-acrylic border border-white/20 p-6 transition-all duration-700 ease-out group-hover:scale-[1.03] group-hover:border-edgeOrange/40 group-hover:shadow-[0_0_60px_rgba(255,106,0,0.25)] overflow-hidden relative"
+  >
+    <div class="flex items-center gap-4">
+
+      <!-- Photo Card (Hover Image Change) -->
+      <div
+        class="w-36 h-36 rounded-xl overflow-hidden relative transition-all duration-700 ease-out"
+      >
+        <!-- Default image -->
+        <img
+          src="./assets/image/me-photo.jpg"
+          class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-110"
+        />
+
+        <!-- Hover image (like dev1/dev2) -->
+        <img
+          src="./assets/image/me-photo2-copy.jpg"
+          class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-110 group-hover:translate-x-2"
+        />
+      </div>
+
+      <div>
+        <div class="text-lg font-semibold tracking-wide">HARIHARAN R</div>
+        <div class="text-edgeMuted text-sm">M.Sc. Computer Science.</div>
+
+        <!-- Social icons -->
+        <div class="mt-5 flex gap-4">
+          <a href="https://www.linkedin.com/in/hariharan-r-5812a02a5">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20id='linkedin'%3e%3cpath%20d='M17.5,8.999a5.41868,5.41868,0,0,0-2.56543.64453A.99918.99918,0,0,0,14,8.999H10a.99943.99943,0,0,0-1,1v12a.99942.99942,0,0,0,1,1h4a.99942.99942,0,0,0,1-1v-5.5a1,1,0,1,1,2,0v5.5a.99942.99942,0,0,0,1,1h4a.99942.99942,0,0,0,1-1v-7.5A5.50685,5.50685,0,0,0,17.5,8.999Zm3.5,12H19v-4.5a3,3,0,1,0-6,0v4.5H11v-10h2v.70313a1.00048,1.00048,0,0,0,1.78125.625A3.48258,3.48258,0,0,1,21,14.499Zm-14-12H3a.99943.99943,0,0,0-1,1v12a.99942.99942,0,0,0,1,1H7a.99942.99942,0,0,0,1-1v-12A.99943.99943,0,0,0,7,8.999Zm-1,12H4v-10H6ZM5.01465,1.542A3.23283,3.23283,0,1,0,4.958,7.999h.02832a3.23341,3.23341,0,1,0,.02832-6.457ZM4.98633,5.999H4.958A1.22193,1.22193,0,0,1,3.58887,4.77051c0-.7461.55957-1.22852,1.42578-1.22852A1.2335,1.2335,0,0,1,6.41113,4.77051C6.41113,5.5166,5.85156,5.999,4.98633,5.999Z'%20fill='%23e74528'%20class='color000000%20svgShape'%3e%3c/path%3e%3c/svg%3e" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://x.com/rvhariharan2004">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20fill='none'%20viewBox='0%200%2024%2024'%20id='x'%3e%3cpath%20fill='%23e74528'%20fill-rule='evenodd'%20d='M20.7071%204.70711C21.0976%204.31658%2021.0976%203.68342%2020.7071%203.29289C20.3166%202.90237%2019.6834%202.90237%2019.2929%203.29289L13.348%209.23779L9.07342%203.40865C8.88504%203.15177%208.58555%203%208.267%203H4C3.62317%203%203.27833%203.21184%203.108%203.54798C2.93766%203.88412%202.97075%204.28747%203.19359%204.59135L9.45538%2013.1304L3.29289%2019.2929C2.90237%2019.6834%202.90237%2020.3166%203.29289%2020.7071C3.68342%2021.0976%204.31658%2021.0976%204.70711%2020.7071L10.652%2014.7622L14.9266%2020.5914C15.115%2020.8482%2015.4145%2021%2015.733%2021H20C20.3768%2021%2020.7217%2020.7882%2020.892%2020.452C21.0623%2020.1159%2021.0293%2019.7125%2020.8064%2019.4086L14.5446%2010.8696L20.7071%204.70711ZM12.3703%2011.2865C12.4012%2011.338%2012.4371%2011.3872%2012.4781%2011.4336L18.0266%2019H16.2398L5.97338%205H7.76026L12.3703%2011.2865Z'%20clip-rule='evenodd'%20class='color051344%20svgShape'%3e%3c/path%3e%3c/svg%3e" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://github.com/rvhariharan">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20id='Github'%3e%3cg%20fill='%23000000'%20class='color000000%20svgShape'%3e%3cg%20fill='%23000000'%20class='color000000%20svgShape'%3e%3cpath%20fill='none'%20stroke='%23e74528'%20stroke-linecap='round'%20stroke-linejoin='round'%20d='M12%20.5A11.5%2011.5%200%200%200%20.5%2012a11.82%2011.82%200%200%200%209%2011.5v-3h-1c-2.62%200-3.54-4-5-4%202.79%200%203.33%202%205%202a.89.89%200%200%200%201-1v-.35c-2.91-.82-5-3-5-5.65a5.26%205.26%200%200%201%201.57-3.66A3.16%203.16%200%200%201%206.5%204.5%205.26%205.26%200%200%201%208.88%206a9.14%209.14%200%200%201%206.24%200%205.26%205.26%200%200%201%202.38-1.5%203.16%203.16%200%200%201%20.43%203.34%205.26%205.26%200%200%201%201.57%203.66c0%202.74-2.29%205-5.42%205.76a4.68%204.68%200%200%201%20.42%202.24v4a11.82%2011.82%200%200%200%209-11.5A11.5%2011.5%200%200%200%2012%20.5Z'%20class='colorStroke303c42%20svgStroke'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+          <a href="https://www.threads.net/@r.hariharan_xx7">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20aria-label='Threads'%20viewBox='0%200%20192%20192'%20id='Threads'%3e%3cpath%20d='M141.537%2088.9883C140.71%2088.5919%20139.87%2088.2104%20139.019%2087.8451C137.537%2060.5382%20122.616%2044.905%2097.5619%2044.745C97.4484%2044.7443%2097.3355%2044.7443%2097.222%2044.7443C82.2364%2044.7443%2069.7731%2051.1409%2062.102%2062.7807L75.881%2072.2328C81.6116%2063.5383%2090.6052%2061.6848%2097.2286%2061.6848C97.3051%2061.6848%2097.3819%2061.6848%2097.4576%2061.6855C105.707%2061.7381%20111.932%2064.1366%20115.961%2068.814C118.893%2072.2193%20120.854%2076.925%20121.825%2082.8638C114.511%2081.6207%20106.601%2081.2385%2098.145%2081.7233C74.3247%2083.0954%2059.0111%2096.9879%2060.0396%20116.292C60.5615%20126.084%2065.4397%20134.508%2073.775%20140.011C80.8224%20144.663%2089.899%20146.938%2099.3323%20146.423C111.79%20145.74%20121.563%20140.987%20128.381%20132.296C133.559%20125.696%20136.834%20117.143%20138.28%20106.366C144.217%20109.949%20148.617%20114.664%20151.047%20120.332C155.179%20129.967%20155.42%20145.8%20142.501%20158.708C131.182%20170.016%20117.576%20174.908%2097.0135%20175.059C74.2042%20174.89%2056.9538%20167.575%2045.7381%20153.317C35.2355%20139.966%2029.8077%20120.682%2029.6052%2096C29.8077%2071.3178%2035.2355%2052.0336%2045.7381%2038.6827C56.9538%2024.4249%2074.2039%2017.11%2097.0132%2016.9405C119.988%2017.1113%20137.539%2024.4614%20149.184%2038.788C154.894%2045.8136%20159.199%2054.6488%20162.037%2064.9503L178.184%2060.6422C174.744%2047.9622%20169.331%2037.0357%20161.965%2027.974C147.036%209.60668%20125.202%200.195148%2097.0695%200H96.9569C68.8816%200.19447%2047.2921%209.6418%2032.7883%2028.0793C19.8819%2044.4864%2013.2244%2067.3157%2013.0007%2095.9325L13%2096L13.0007%2096.0675C13.2244%20124.684%2019.8819%20147.514%2032.7883%20163.921C47.2921%20182.358%2068.8816%20191.806%2096.9569%20192H97.0695C122.03%20191.827%20139.624%20185.292%20154.118%20170.811C173.081%20151.866%20172.51%20128.119%20166.26%20113.541C161.776%20103.087%20153.227%2094.5962%20141.537%2088.9883ZM98.4405%20129.507C88.0005%20130.095%2077.1544%20125.409%2076.6196%20115.372C76.2232%20107.93%2081.9158%2099.626%2099.0812%2098.6368C101.047%2098.5234%20102.976%2098.468%20104.871%2098.468C111.106%2098.468%20116.939%2099.0737%20122.242%20100.233C120.264%20124.935%20108.662%20128.946%2098.4405%20129.507Z'%20class='x19hqcy%20color000000%20svgShape'%20fill='%23e74528'%3e%3c/path%3e%3c/svg%3e" class="w-6 h-6 hover:scale-125 transition duration-500" />
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- soft glow circle -->
+    <div
+      class="pointer-events-none absolute -right-8 -bottom-8 w-44 h-44 rounded-full blur-3xl bg-edgeOrange/20 transition-all duration-700 group-hover:scale-[1.4] group-hover:bg-edgeOrange/30"
+    ></div>
+  </div>
+</div>
+
+    </section>
+
+    <!-- About -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-12 scroll-mt-20">
+      <div class="grid md:grid-cols-3 gap-8 items-start">
+        <div class="md:col-span-2 space-y-4 reveal">
+          <h2 class="text-2xl font-semibold">About</h2>
+          <p class="text-edgeMuted">I am a Full Stack Developer with practice from online course projects, using modern UI design and some basic desktop application development. I like to build user-friendly web applications. I am always ready to learn new things and explore new technologies as a content creator. I also have basic knowledge of the Figma tool for UI/UX design.</p>
+
+          <div class="grid sm:grid-cols-2 gap-4 mt-6">
+            <div class="p-4 rounded-lg edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 transactions">
+              <div class="font-semibold">M.Sc. Computer Science</div>
+              <div class="text-orange-500 text-sm mt-2">Periyar University, Salem. </div>
+              <div class="text-white text-sm font-courier flex gap-2">
+              <span class=" py-1 font-courier text-white text-xs">2024 - 2026</span>
+              <span class="px-2 py-1 font-courier text-white text-xs">First Class</span>
+              </div>
+            </div>
+            <div class="p-4 rounded-lg edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 transactions">
+              <div class="font-semibold">B.Sc. Computer Science</div>
+              <div class="text-orange-500 text-sm mt-2">Vivekananada College, Madurai.</div>
+              <div class="text-white text-sm font-courier flex gap-2">
+              <span class="py-1 font-courier text-white text-xs">2021 - 2024</span>
+              <span class="px-2 py-1 font-courier text-white text-xs">First Class</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="rounded-2xl p-4 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 transactions">
+          <div class="font-semibold">Quick info</div>
+          <ul class="mt-3 text-sm text-edgeMuted space-y-2">
+            <li>Location: India</li>
+            <li>Focus: Web Design, UI/UX, TTS & AI</li>
+            <li>Tools: VS Code, Visual Studio, Figma</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Skills -->
+<section id="skills" class="mx-auto px-6 py-12 scroll-mt-20">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-semibold mb-6">Skills</h2>
+
+    <!-- MOBILE: 2 columns (touch friendly). SM+: 2 cols, MD+: 3, LG+:4 -->
+    <div class="skills-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
+
+      <!-- Column 1 -->
+      <div class="skills-col flex flex-col items-center gap-4">
+        <!-- each skill-item is touch friendly and keyboard-accessible -->
+        <div role="button" tabindex="0" aria-label="HTML5" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M41,5h-34l3,34l14,4l14,-4l3,-34z'%20fill='%23e74528'%3e%3c/path%3e%3cpath%20d='M24,8v31.9l11.2,-3.2l2.5,-28.7z'%20fill='%23ff6d00'%3e%3c/path%3e%3cpath%20d='M24,25v-4h8.6l-0.7,11.5l-7.9,2.6v-4.2l4.1,-1.4l0.3,-4.5zM32.9,17l0.3,-4h-9.2v4z'%20fill='%23ffffff'%3e%3c/path%3e%3cpath%20d='M24,30.9v4.2l-7.9,-2.6l-0.4,-5.5h4l0.2,2.5zM19.1,17h4.9v-4h-9.1l0.7,12h8.4v-4h-4.6z'%20fill='%23eeeeee'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="HTML5" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">HTML5</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Tailwind CSS" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='%23e74528'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M24,9.604c-6.4,0%20-10.4,3.199%20-12,9.597c2.4,-3.199%205.2,-4.398%208.4,-3.599c1.826,0.456%203.131,1.781%204.576,3.247c2.352,2.387%205.075,5.151%2011.024,5.151c6.4,0%2010.4,-3.199%2012,-9.598c-2.4,3.199%20-5.2,4.399%20-8.4,3.6c-1.825,-0.456%20-3.13,-1.781%20-4.575,-3.247c-2.353,-2.388%20-5.077,-5.151%20-11.025,-5.151zM12,24c-6.4,0%20-10.4,3.199%20-12,9.598c2.4,-3.199%205.2,-4.399%208.4,-3.599c1.825,0.457%203.13,1.781%204.575,3.246c2.353,2.388%205.077,5.152%2011.025,5.152c6.4,0%2010.4,-3.199%2012,-9.598c-2.4,3.199%20-5.2,4.399%20-8.4,3.599c-1.826,-0.456%20-3.131,-1.781%20-4.576,-3.246c-2.352,-2.388%20-5.075,-5.152%20-11.024,-5.152z'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="Tailwind" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Tailwind CSS</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Node js" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20128%20128'%20id='NodeJs'%3e%3cpath%20fill='%23cd4229'%20d='M114.325%2080.749c-.29%200-.578-.076-.832-.224l-2.65-1.568c-.396-.221-.203-.3-.072-.345.528-.184.635-.227%201.198-.545.059-.033.136-.021.197.015l2.035%201.209c.074.041.179.041.246%200l7.937-4.581c.075-.042.122-.127.122-.215v-9.16c0-.09-.047-.173-.123-.219l-7.934-4.577c-.074-.042-.171-.042-.245%200l-7.933%204.578c-.076.045-.125.131-.125.218v9.16c0%20.088.049.171.125.212l2.174%201.257c1.18.589%201.903-.105%201.903-.803v-9.045c0-.127.103-.228.23-.228h1.007c.125%200%20.229.101.229.228v9.045c0%201.574-.857%202.477-2.35%202.477-.459%200-.82%200-1.828-.496l-2.081-1.198c-.515-.298-.832-.854-.832-1.448v-9.16c0-.595.317-1.15.832-1.446l7.937-4.587c.502-.283%201.169-.283%201.667%200l7.937%204.587c.514.297.833.852.833%201.446v9.16c0%20.595-.319%201.148-.833%201.448l-7.937%204.582c-.252.147-.539.223-.834.223M116.778%2074.438c-3.475%200-4.202-1.595-4.202-2.932%200-.126.103-.229.23-.229h1.026c.115%200%20.21.082.228.194.154%201.045.617%201.572%202.718%201.572%201.671%200%202.383-.378%202.383-1.266%200-.512-.202-.891-2.8-1.146-2.172-.215-3.515-.694-3.515-2.433%200-1.601%201.35-2.557%203.612-2.557%202.543%200%203.801.883%203.96%202.777.006.064-.017.127-.06.176-.044.045-.104.073-.168.073h-1.031c-.107%200-.201-.075-.223-.179-.248-1.1-.848-1.451-2.479-1.451-1.825%200-2.037.637-2.037%201.112%200%20.577.25.745%202.715%201.071%202.439.323%203.598.779%203.598%202.494.001%201.733-1.441%202.724-3.955%202.724'%20class='color83cd29%20svgShape'%3e%3c/path%3e%3cpath%20fill='%23e74528'%20d='M97.982%2068.43c.313-.183.506-.517.506-.88v-2.354c0-.362-.192-.696-.506-.879l-8.364-4.856c-.315-.183-.703-.184-1.019-.002l-8.416%204.859c-.314.182-.508.517-.508.88v9.716c0%20.365.196.703.514.884l8.363%204.765c.308.177.686.178.997.006l5.058-2.812c.161-.09.261-.258.262-.44.001-.184-.097-.354-.256-.445l-8.468-4.86c-.159-.091-.256-.259-.256-.44v-3.046c0-.182.097-.349.254-.439l2.637-1.52c.156-.091.35-.091.507%200l2.637%201.52c.158.091.255.258.255.439v2.396c0%20.183.097.351.254.441.158.091.352.091.51-.001l5.039-2.932'%20class='color404137%20svgShape'%3e%3c/path%3e%3cpath%20fill='%23cd4229'%20d='M88.984%2067.974c.061-.034.135-.034.195%200l1.615.933c.06.035.097.1.097.169v1.865c0%20.07-.037.134-.097.169l-1.615.932c-.06.035-.135.035-.195%200l-1.614-.932c-.061-.035-.098-.099-.098-.169v-1.865c0-.069.037-.134.098-.169l1.614-.933'%20class='color83cd29%20svgShape'%3e%3c/path%3e%3cpath%20fill='%23e74528'%20d='M67.083%2071.854c0%20.09-.048.174-.127.22l-2.89%201.666c-.079.046-.176.046-.254%200l-2.89-1.666c-.079-.046-.127-.13-.127-.22v-3.338c0-.09.049-.175.127-.221l2.89-1.668c.079-.047.176-.047.255%200l2.891%201.668c.078.046.126.131.126.221v3.338zm.781-24.716c-.157-.087-.349-.085-.505.006-.155.092-.251.258-.251.438v12.915c0%20.126-.068.244-.177.308-.11.063-.246.063-.356%200l-2.108-1.215c-.314-.181-.701-.181-1.015%200l-8.418%204.858c-.315.182-.509.518-.509.881v9.719c0%20.363.194.698.508.881l8.418%204.861c.314.182.702.182%201.017%200l8.42-4.861c.314-.183.508-.518.508-.881v-24.227c0-.368-.2-.708-.521-.888l-5.011-2.795'%20class='color404137%20svgShape'%3e%3c/path%3e%3cpath%20fill='%23cd4229'%20d='M38.238%2059.407c.314-.182.702-.182%201.016%200l8.418%204.857c.314.182.508.518.508.881v9.722c0%20.363-.194.699-.508.881l-8.417%204.861c-.314.181-.702.181-1.017%200l-8.415-4.861c-.314-.182-.508-.518-.508-.881v-9.723c0-.362.194-.698.508-.88l8.415-4.857'%20class='color83cd29%20svgShape'%3e%3c/path%3e%3cpath%20fill='%23e74528'%20d='M22.93%2065.064c0-.366-.192-.702-.508-.883l-8.415-4.843c-.144-.084-.303-.127-.464-.133h-.087c-.16.006-.32.049-.464.133l-8.416%204.843c-.313.181-.509.517-.509.883l.018%2013.04c0%20.182.095.351.254.439.156.094.349.094.505%200l5-2.864c.316-.188.509-.519.509-.882v-6.092c0-.364.192-.699.507-.881l2.13-1.226c.158-.093.332-.137.508-.137.174%200%20.352.044.507.137l2.128%201.226c.315.182.509.517.509.881v6.092c0%20.363.195.696.509.882l5%202.864c.157.094.353.094.508%200%20.155-.089.252-.258.252-.439l.019-13.04'%20class='color404137%20svgShape'%3e%3c/path%3e%3c/svg%3e" alt="Node js" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Node js</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Chat GPT" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='%23e74528'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M30.7,7.27l-2.37,1.83c-1.605,-2.067%20-4.068,-3.209%20-6.697,-3.092c-4.32,0.192%20-7.633,3.945%20-7.633,8.269v9.143l10.5,6.12l-1,1.72l-11.706,-6.827c-0.492,-0.287%20-0.794,-0.813%20-0.794,-1.382v-8.687c0,-6.264%205.129,-11.574%2011.39,-11.357c3.279,0.113%206.29,1.656%208.31,4.263z'%3e%3c/path%3e%3cpath%20d='M12.861,9.833l0.4,2.967c-2.592,0.357%20-4.813,1.919%20-6.026,4.254c-1.994,3.837%20-0.4,8.582%203.345,10.745l7.918,4.571l10.55,-6.033l0.99,1.726l-11.765,6.724c-0.494,0.282%20-1.101,0.281%20-1.594,-0.003l-7.523,-4.343c-5.426,-3.133%20-7.46,-10.23%20-4.142,-15.543c1.738,-2.784%204.58,-4.619%207.847,-5.065z'%3e%3c/path%3e%3cpath%20d='M6.161,26.563l2.77,1.137c-0.987,2.423%20-0.745,5.128%200.671,7.346c2.326,3.645%207.233,4.638%2010.977,2.476l7.918,-4.572l0.05,-12.153l1.99,0.006l-0.059,13.551c-0.002,0.569%20-0.307,1.094%20-0.8,1.379l-7.523,4.343c-5.425,3.132%20-12.588,1.345%20-15.531,-4.185c-1.541,-2.897%20-1.71,-6.275%20-0.463,-9.328z'%3e%3c/path%3e%3cpath%20d='M17.3,40.73l2.37,-1.83c1.605,2.067%204.068,3.209%206.697,3.092c4.32,-0.192%207.633,-3.945%207.633,-8.269v-9.143l-10.5,-6.12l1,-1.72l11.706,6.827c0.492,0.287%200.794,0.813%200.794,1.382v8.687c0,6.264%20-5.13,11.574%20-11.39,11.358c-3.279,-0.114%20-6.29,-1.657%20-8.31,-4.264z'%3e%3c/path%3e%3cpath%20d='M35.139,38.167l-0.4,-2.967c2.592,-0.357%204.813,-1.919%206.026,-4.254c1.994,-3.837%200.4,-8.582%20-3.345,-10.745l-7.918,-4.571l-10.55,6.033l-0.99,-1.726l11.765,-6.724c0.494,-0.282%201.101,-0.281%201.594,0.003l7.523,4.343c5.425,3.132%207.459,10.229%204.141,15.543c-1.737,2.784%20-4.579,4.619%20-7.846,5.065z'%3e%3c/path%3e%3cpath%20d='M41.839,21.437l-2.77,-1.137c0.987,-2.423%200.745,-5.128%20-0.671,-7.346c-2.326,-3.645%20-7.233,-4.638%20-10.977,-2.476l-7.918,4.572l-0.05,12.153l-1.99,-0.006l0.059,-13.551c0.002,-0.569%200.307,-1.094%200.8,-1.379l7.523,-4.343c5.425,-3.132%2012.588,-1.345%2015.531,4.185c1.541,2.897%201.71,6.275%200.463,9.328z'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="Chat GPT" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Chat GPT</div>
+        </div>
+      </div>
+
+      <!-- Column 2 -->
+      <div class="skills-col flex flex-col items-center gap-4">
+        <div role="button" tabindex="0" aria-label="CSS3" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M41,5h-34l3,34l14,4l14,-4l3,-34z'%20fill='%23e74528'%3e%3c/path%3e%3cpath%20d='M24,8v31.9l11.2,-3.2l2.5,-28.7z'%20fill='%23ff6d00'%3e%3c/path%3e%3cpath%20d='M33.1,13h-9.1v4h4.9l-0.3,4h-4.6v4h4.4l-0.3,4.5l-4.1,1.4v4.2l7.9,-2.6l0.7,-11.5v0z'%20fill='%23ffffff'%3e%3c/path%3e%3cpath%20d='M24,13v4h-8.9l-0.3,-4zM19.4,21l0.2,4h4.4v-4zM19.8,27h-4l0.3,5.5l7.9,2.6v-4.2l-4.1,-1.4z'%20fill='%23eeeeee'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="CSS3" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">CSS3</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="React.js" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='%23e74528'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M24,34c-12.9,0%20-23,-4.4%20-23,-10c0,-5.6%2010.1,-10%2023,-10c12.9,0%2023,4.4%2023,10c0,5.6%20-10.1,10%20-23,10zM24,16c-12.6,0%20-21,4.1%20-21,8c0,3.9%208.4,8%2021,8c12.6,0%2021,-4.1%2021,-8c0,-3.9%20-8.4,-8%20-21,-8z'%3e%3c/path%3e%3cpath%20d='M15.1,44.6c-1,0%20-1.8,-0.2%20-2.6,-0.7c-4.9,-2.8%20-3.6,-13.7%202.8,-24.9v0c3,-5.2%206.7,-9.6%2010.3,-12.4c3.9,-3%207.4,-3.9%209.8,-2.5c2.5,1.4%203.4,4.9%202.8,9.8c-0.6,4.6%20-2.6,10%20-5.6,15.2c-3,5.2%20-6.7,9.6%20-10.3,12.4c-2.6,2%20-5.1,3.1%20-7.2,3.1zM32.9,5.4c-1.6,0%20-3.7,0.9%20-6,2.7c-3.4,2.7%20-6.9,6.9%20-9.8,11.9v0c-6.3,10.9%20-6.9,20.3%20-3.6,22.2c1.7,1%204.5,0.1%207.6,-2.3c3.4,-2.7%206.9,-6.9%209.8,-11.9c2.9,-5%204.8,-10.1%205.4,-14.4c0.5,-4%20-0.1,-6.8%20-1.8,-7.8c-0.5,-0.2%20-1,-0.4%20-1.6,-0.4z'%3e%3c/path%3e%3cpath%20d='M33,44.6c-5,0%20-12.2,-6.1%20-17.6,-15.6c-6.5,-11.2%20-7.8,-22.1%20-2.9,-24.9v0c4.9,-2.8%2013.7,3.7%2020.2,14.9c3,5.2%205,10.6%205.6,15.2c0.7,4.9%20-0.3,8.3%20-2.8,9.8c-0.8,0.4%20-1.6,0.6%20-2.5,0.6zM13.5,5.8c-3.3,1.9%20-2.7,11.3%203.6,22.2c6.3,10.9%2014.1,16.1%2017.4,14.2c1.7,-1%202.3,-3.8%201.8,-7.8c-0.6,-4.3%20-2.5,-9.4%20-5.4,-14.4c-6.3,-10.9%20-14.1,-16.1%20-17.4,-14.2z'%3e%3c/path%3e%3ccircle%20cx='24'%20cy='24'%20r='4'%3e%3c/circle%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="React.js" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">React.js</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="GitHub" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xml:space='preserve'%20viewBox='0%200%2016%2016'%20id='Github'%3e%3cpath%20d='M7.999%200C3.582%200%200%203.596%200%208.032a8.031%208.031%200%200%200%205.472%207.621c.4.074.546-.174.546-.387%200-.191-.007-.696-.011-1.366-2.225.485-2.695-1.077-2.695-1.077-.363-.928-.888-1.175-.888-1.175-.727-.498.054-.488.054-.488.803.057%201.225.828%201.225.828.714%201.227%201.873.873%202.329.667.072-.519.279-.873.508-1.074-1.776-.203-3.644-.892-3.644-3.969%200-.877.312-1.594.824-2.156-.083-.203-.357-1.02.078-2.125%200%200%20.672-.216%202.2.823a7.633%207.633%200%200%201%202.003-.27%207.65%207.65%200%200%201%202.003.271c1.527-1.039%202.198-.823%202.198-.823.436%201.106.162%201.922.08%202.125.513.562.822%201.279.822%202.156%200%203.085-1.87%203.764-3.652%203.963.287.248.543.738.543%201.487%200%201.074-.01%201.94-.01%202.203%200%20.215.144.465.55.386A8.032%208.032%200%200%200%2016%208.032C16%203.596%2012.418%200%207.999%200z'%20fill='%23e74528'%20class='color000000%20svgShape'%3e%3c/path%3e%3c/svg%3e" alt="github" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">GitHub</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="C#" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M22.903,3.286c0.679,-0.381%201.515,-0.381%202.193,0c3.355,1.883%2013.451,7.551%2016.807,9.434c0.679,0.38%201.097,1.084%201.097,1.846c0,3.766%200,15.101%200,18.867c0,0.762%20-0.418,1.466%20-1.097,1.847c-3.355,1.883%20-13.451,7.551%20-16.807,9.434c-0.679,0.381%20-1.515,0.381%20-2.193,0c-3.355,-1.883%20-13.451,-7.551%20-16.807,-9.434c-0.678,-0.381%20-1.096,-1.084%20-1.096,-1.846c0,-3.766%200,-15.101%200,-18.867c0,-0.762%200.418,-1.466%201.097,-1.847c3.354,-1.883%2013.452,-7.551%2016.806,-9.434z'%20fill='%23e74528'%3e%3c/path%3e%3cpath%20d='M5.304,34.404c-0.266,-0.356%20-0.304,-0.694%20-0.304,-1.149c0,-3.744%200,-15.014%200,-18.759c0,-0.758%200.417,-1.458%201.094,-1.836c3.343,-1.872%2013.405,-7.507%2016.748,-9.38c0.677,-0.379%201.594,-0.371%202.271,0.008c3.343,1.872%2013.371,7.459%2016.714,9.331c0.27,0.152%200.476,0.335%200.66,0.576z'%20fill='%23ff8e5e'%3e%3c/path%3e%3cpath%20d='M24,10c-7.73,0%20-14,6.27%20-14,14c0,7.73%206.27,14%2014,14c7.73,0%2014,-6.27%2014,-14c0,-7.73%20-6.27,-14%20-14,-14zM24,31c-3.86,0%20-7,-3.14%20-7,-7c0,-3.86%203.14,-7%207,-7c3.86,0%207,3.14%207,7c0,3.86%20-3.14,7%20-7,7z'%20fill='%23ffffff'%3e%3c/path%3e%3cpath%20d='M42.485,13.205c0.516,0.483%200.506,1.211%200.506,1.784c0,3.795%20-0.032,14.589%200.009,18.384c0.004,0.396%20-0.127,0.813%20-0.323,1.127l-19.084,-10.5z'%20fill='%23fb6c01'%3e%3c/path%3e%3cpath%20d='M34,20h1v8h-1zM37,20h1v8h-1z'%20fill='%23ffffff'%3e%3c/path%3e%3cpath%20d='M32,25h8v1h-8zM32,22h8v1h-8z'%20fill='%23ffffff'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="C#" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">C#</div>
+        </div>
+      </div>
+
+      <!-- Column 3 -->
+      <div class="skills-col flex flex-col items-center gap-4">
+        <div role="button" tabindex="0" aria-label="JavaScript" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M6,42v-36h36v36z'%20fill='%23e74528'%3e%3c/path%3e%3cpath%20d='M29.538,32.947c0.692,1.124%201.444,2.201%203.037,2.201c1.338,0%202.04,-0.665%202.04,-1.585c0,-1.101%20-0.726,-1.492%20-2.198,-2.133l-0.807,-0.344c-2.329,-0.988%20-3.878,-2.226%20-3.878,-4.841c0,-2.41%201.845,-4.244%204.728,-4.244c2.053,0%203.528,0.711%204.592,2.573l-2.514,1.607c-0.553,-0.988%20-1.151,-1.377%20-2.078,-1.377c-0.946,0%20-1.545,0.597%20-1.545,1.377c0,0.964%200.6,1.354%201.985,1.951l0.807,0.344c2.745,1.169%204.293,2.363%204.293,5.047c0,2.892%20-2.284,4.477%20-5.35,4.477c-2.999,0%20-4.702,-1.505%20-5.65,-3.368zM17.952,33.029c0.506,0.906%201.275,1.603%202.381,1.603c1.058,0%201.667,-0.418%201.667,-2.043v-10.589h3.333v11.101c0,3.367%20-1.953,4.899%20-4.805,4.899c-2.577,0%20-4.437,-1.746%20-5.195,-3.368z'%20fill='%23000001'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="JavaScript" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">JavaScript</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Visual studio" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M44,11.11v25.78c0,1.27%20-0.79,2.4%20-1.98,2.82l-8.82,4.14l0.8,-10.85v-18l-0.8,-10.85l8.82,4.14c1.19,0.42%201.98,1.55%201.98,2.82z'%20fill='%23fb9f8f'%3e%3c/path%3e%3cpath%20d='M4.416,33.815l3.159,1.95c0.733,0.44%201.664,0.365%202.318,-0.185l24.107,-19.642v-10.585c0,-1.198%20-1.482,-1.758%20-2.275,-0.86l-22.725,25.38z'%20fill='%23e33c1e'%3e%3c/path%3e%3cpath%20d='M4.416,14.185l3.159,-1.95c0.733,-0.44%201.664,-0.365%202.318,0.185l24.107,19.643v10.585c0,1.198%20-1.482,1.758%20-2.275,0.86l-22.725,-25.381z'%20fill='%23ef644c'%3e%3c/path%3e%3cpath%20d='M9,18.13v11.74l-3.2,3.74c-0.58,0.76%20-1.8,0.35%20-1.8,-0.61v-18c0,-0.96%201.22,-1.37%201.8,-0.61z'%20fill='%23e74528'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="Visual Studio" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Visual studio</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="VS Code" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M44,11.11v25.78c0,1.27%20-0.79,2.4%20-1.98,2.82l-8.82,4.14l0.8,-10.85v-18l-0.8,-10.85l8.82,4.14c1.19,0.42%201.98,1.55%201.98,2.82z'%20fill='%23f14728'%3e%3c/path%3e%3cpath%20d='M9,33.896l25,-18.896v-9.647c0,-1.198%20-1.482,-1.758%20-2.275,-0.86l-27.067,24.746c-0.9,0.83%20-0.849,2.267%200.107,3.032c0,0%201.324,1.232%201.803,1.574c0.736,0.525%201.703,0.585%202.432,0.051z'%20fill='%23c32003'%3e%3c/path%3e%3cpath%20d='M9,14.104l25,18.896v9.647c0,1.198%20-1.482,1.758%20-2.275,0.86l-27.067,-24.746c-0.9,-0.83%20-0.849,-2.267%200.107,-3.032c0,0%201.324,-1.232%201.803,-1.574c0.736,-0.525%201.703,-0.585%202.432,-0.051z'%20fill='%23d12405'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="VS Code" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">VS Code</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Php" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20enable-background='new%200%200%2024%2024'%20viewBox='0%200%2024%2024'%20id='Php'%3e%3cpath%20d='M16.823%2010.154l-.514%202.726c1.253%200%202.329.185%202.629-1.402v.001C19.215%209.996%2018.255%2010.154%2016.823%2010.154zM6.067%2010.154l-.514%202.726c1.286%200%202.333.161%202.629-1.402v.001C8.46%209.996%207.492%2010.154%206.067%2010.154z'%20fill='%23e74528'%20class='color000000%20svgShape'%3e%3c/path%3e%3cpath%20d='M12,5.5C5.374,5.5,0,8.408,0,12c0,3.592,5.374,6.5,12,6.5s12-2.908,12-6.5C24,8.408,18.626,5.5,12,5.5z%20M5.355,13.911l-0.326,1.73H3.653H3.652l1.226-6.516H7.53c0.795,0,1.38,0.213,1.744,0.645c0.698,0.826,0.442,2.476-0.536,3.403C7.853,14.028,6.897,13.911,5.355,13.911z%20M12.765,13.905c0.578-3.067,0.686-3.321,0.476-3.554c-0.203-0.224-0.664-0.178-1.778-0.178l-0.705,3.731H9.39l1.226-6.511h1.369l-0.326,1.73c1.182,0,2.276-0.089,2.805,0.414c0.555,0.526,0.289,1.197-0.311,4.368H12.765z%20M19.496,13.174c-0.866,0.834-1.762,0.737-3.382,0.737l-0.326,1.73h-1.38l1.23-6.516h2.651c0.795,0,1.38,0.213,1.744,0.645C20.73,10.598,20.474,12.247,19.496,13.174z'%20fill='%23e74528'%20class='color000000%20svgShape'%3e%3c/path%3e%3c/svg%3e" alt="Php" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Php</div>
+        </div>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="skills-col flex flex-col items-center gap-4">
+        <div role="button" tabindex="0" aria-label="Bootstrap" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='none'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M7.373,11.443c-0.08,-2.311%201.721,-4.443%204.156,-4.443h24.946c2.435,0%204.236,2.132%204.155,4.443c-0.077,2.221%200.023,5.097%200.747,7.443c0.726,2.353%201.951,3.84%203.957,4.031v2.167c-2.006,0.191%20-3.23,1.678%20-3.957,4.031c-0.724,2.345%20-0.824,5.222%20-0.747,7.443c0.08,2.31%20-1.721,4.442%20-4.155,4.442h-24.946c-2.434,0%20-4.236,-2.132%20-4.155,-4.443c0.077,-2.221%20-0.023,-5.097%20-0.747,-7.443c-0.726,-2.353%20-1.954,-3.84%20-3.96,-4.031v-2.167c2.006,-0.191%203.233,-1.678%203.96,-4.031c0.723,-2.345%200.824,-5.221%200.746,-7.442z'%20fill='%23e74528'%3e%3c/path%3e%3cpath%20d='M27.073,23.464v-0.028c1.853,-0.32%203.299,-2.057%203.299,-3.97c0,-1.352%20-0.52,-2.498%20-1.504,-3.312c-0.981,-0.812%20-2.357,-1.241%20-3.981,-1.241h-7.437v18.167h7.475c1.942,0%203.555,-0.474%204.663,-1.372c1.109,-0.899%201.696,-2.207%201.696,-3.783c-0.001,-2.381%20-1.691,-4.169%20-4.211,-4.461zM23.59,22.608h-3.181v-5.318h3.784c2.076,0%203.219,0.911%203.219,2.565c0.001,1.775%20-1.357,2.753%20-3.822,2.753zM20.409,24.834h3.759c2.716,0%204.092,0.981%204.092,2.916c0,1.932%20-1.357,2.953%20-3.925,2.953h-3.926z'%20fill='%23ffffff'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="Bootstrap" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Bootstrap</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="MongoDB" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20enable-background='new%200%200%2024%2024'%20viewBox='0%200%2024%2024'%20id='Mongodb'%3e%3cpath%20d='M11.884,0c-0.002,0.019-0.004,0.031-0.005,0.049v0.013h-0.001c-0.002,0.015-0.003,0.025-0.004,0.039v0.015h-0.002c0,0.01-0.002,0.018-0.002,0.026v0.026h-0.003c-0.001,0.008-0.001,0.018-0.003,0.025v0.021h-0.002c0,0.007,0,0.015-0.002,0.021v0.02h-0.002c0,0.01-0.001,0.022-0.002,0.032v0.002c-0.003,0.017-0.006,0.034-0.009,0.05v0.008h-0.002c-0.001,0.004-0.003,0.008-0.003,0.012v0.017h-0.003v0.022h-0.005v0.018h-0.005v0.021h-0.004v0.019H11.82v0.017h-0.006v0.014h-0.004v0.018h-0.004v0.014H11.8v0.013h-0.003v0.015h-0.004c-0.001,0.001-0.001,0.003-0.001,0.004v0.01h-0.003c-0.001,0.002-0.001,0.004-0.001,0.006v0.006h-0.002c-0.001,0.003-0.002,0.008-0.002,0.01c-0.003,0.007-0.007,0.014-0.01,0.021v0.002c-0.002,0.002-0.004,0.005-0.005,0.007v0.008h-0.004v0.008h-0.005v0.008h-0.003v0.01H11.75v0.014h-0.004v0.004h-0.004v0.008h-0.004v0.011h-0.004v0.008h-0.006v0.011h-0.004v0.008h-0.005v0.008h-0.003v0.01H11.71v0.008h-0.004v0.006h-0.004v0.008h-0.006V0.76h-0.004v0.006h-0.005v0.008h-0.004v0.011h-0.005v0.004h-0.003v0.008h-0.006v0.004h-0.004v0.01H11.66v0.004h-0.004v0.008h-0.005v0.006h-0.003l-0.002,0.004v0.004h-0.002c-0.001,0.002-0.002,0.002-0.002,0.004v0.001h-0.001c-0.001,0.003-0.002,0.005-0.004,0.007v0.003h-0.001c-0.005,0.006-0.008,0.012-0.012,0.018v0.001c-0.002,0.002-0.007,0.006-0.009,0.01v0.002h-0.001c-0.001,0.001-0.003,0.002-0.003,0.003v0.003h-0.002l-0.003,0.003v0.001h-0.001c0,0.001-0.002,0.002-0.003,0.004v0.004h-0.003l-0.002,0.002v0.002h-0.002c0,0.002-0.002,0.002-0.002,0.003v0.003h-0.004c0,0.001-0.001,0.002-0.002,0.003V0.92h-0.003v0.004h-0.004V0.93h-0.004v0.008h-0.005V0.93h-0.005v0.004H11.56V0.94h-0.005v0.008H11.55v0.004h-0.004v0.006h-0.004v0.004h-0.004V0.97h-0.006v0.004h-0.004V0.98h-0.005v0.004h-0.004v0.005h-0.005v0.01h-0.002v0.004h-0.006v0.005h-0.004V1.01h-0.004v0.004h-0.005v0.01h-0.004v0.004h-0.005v0.004h-0.004v0.006h-0.005v0.004h-0.005v0.004h-0.004V1.05H11.46v0.01h-0.004v0.005H11.45v0.004h-0.004v0.004H11.44v0.006h-0.004v0.004h-0.005V1.09h-0.004v0.004h-0.006V1.1h-0.002v0.004h-0.004v0.004H11.41v0.004h-0.004v0.006h-0.005v0.004h-0.003c-0.001,0.001-0.001,0.002-0.001,0.002v0.002h-0.002L11.39,1.13c0,0-0.002,0.002-0.004,0.003v0.006h-0.004v0.005h-0.004v0.004h-0.004v0.004h-0.003l-0.003,0.003v0.003h-0.002L11.364,1.16v0.003h-0.002c-0.005,0.006-0.007,0.01-0.014,0.016c-0.002,0.002-0.008,0.007-0.012,0.01c-0.012,0.008-0.028,0.021-0.04,0.032c-0.008,0.005-0.016,0.012-0.022,0.017v0.001h-0.001c-0.016,0.013-0.032,0.025-0.05,0.039v0.001c-0.024,0.02-0.048,0.039-0.076,0.062V1.34h-0.002c-0.058,0.047-0.12,0.1-0.19,0.159V1.5h-0.001c-0.173,0.148-0.378,0.338-0.608,0.568l-0.019,0.019c-1.39,1.407-3.581,4.339-3.812,9.077c-0.02,0.392-0.016,0.773,0.006,1.144v0.009c0.111,1.867,0.71,3.461,1.46,4.756v0.001c0.298,0.516,0.62,0.985,0.947,1.405v0.001c1.126,1.455,2.276,2.317,2.57,2.526c0.451,1.023,0.409,2.779,0.409,2.779L12.563,24c0,0-0.134-1.701,0.054-2.522c0.058-0.257,0.196-0.476,0.357-0.662c0.108-0.075,0.429-0.301,0.815-0.645c0.018-0.019,0.029-0.036,0.045-0.054c1.555-1.418,4.459-4.91,3.463-10.599c-1.291-5.56-4.336-7.387-4.663-8.086C12.273,0.939,11.884,0,11.884,0z'%20fill='%23e74528'%20class='color000000%20svgShape'%3e%3c/path%3e%3c/svg%3e" alt="MongoDB" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">MongoDB</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Git" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0,0,256,256'%3e%3cg%20fill='%23e74528'%20fill-rule='nonzero'%20stroke='none'%20stroke-width='1'%20stroke-linecap='butt'%20stroke-linejoin='miter'%20stroke-miterlimit='10'%20stroke-dasharray=''%20stroke-dashoffset='0'%20font-family='none'%20font-weight='none'%20font-size='none'%20text-anchor='none'%20style='mix-blend-mode:%20normal'%3e%3cg%20transform='scale(5.33333,5.33333)'%3e%3cpath%20d='M42.2,22.1l-16.3,-16.3c-0.5,-0.5%20-1.2,-0.8%20-1.9,-0.8v0c-0.7,0%20-1.4,0.3%20-1.9,0.8l-3.5,3.5l4.1,4.1c0.4,-0.2%200.8,-0.3%201.3,-0.3c1.7,0%203,1.3%203,3c0,0.5%20-0.1,0.9%20-0.3,1.3l4,4c0.4,-0.2%200.8,-0.3%201.3,-0.3c1.7,0%203,1.3%203,3c0,1.7%20-1.3,3%20-3,3c-1.7,0%20-3,-1.3%20-3,-3c0,-0.5%200.1,-0.9%200.3,-1.3l-4,-4c-0.1,0%20-0.2,0.1%20-0.3,0.1v10.4c1.2,0.4%202,1.5%202,2.8c0,1.7%20-1.3,3%20-3,3c-1.7,0%20-3,-1.3%20-3,-3c0,-1.3%200.8,-2.4%202,-2.8v-10.5c-1.2,-0.4%20-2,-1.5%20-2,-2.8c0,-0.5%200.1,-0.9%200.3,-1.3l-4.1,-4.1l-11.4,11.5c-0.5,0.5%20-0.8,1.2%20-0.8,1.9c0,0.7%200.3,1.4%200.8,1.9l16.3,16.3v0c0.5,0.5%201.2,0.8%201.9,0.8c0.7,0%201.4,-0.3%201.9,-0.8l16.3,-16.3c0.5,-0.5%200.8,-1.2%200.8,-1.9c0,-0.7%20-0.3,-1.4%20-0.8,-1.9z'%3e%3c/path%3e%3c/g%3e%3c/g%3e%3c/svg%3e" alt="Git" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Git</div>
+        </div>
+
+        <div role="button" tabindex="0" aria-label="Figma" class="skill-item w-full max-w-[140px]">
+          <div class="w-20 h-20 sm:w-16 sm:h-16 rounded-lg bg-white/6 flex items-center justify-center shadow-sm">
+            <img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20x='0px'%20y='0px'%20width='100'%20height='100'%20viewBox='0%200%2048%2048'%3e%3cpath%20fill='%23e64a19'%20d='M26,17h-8c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h8V17z'%3e%3c/path%3e%3cpath%20fill='%237c4dff'%20d='M25,31h-7c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h7V31z'%3e%3c/path%3e%3cpath%20fill='%2366bb6a'%20d='M18,45L18,45c-3.866,0-7-3.134-7-7v0c0-3.866,3.134-7,7-7h7v7C25,41.866,21.866,45,18,45z'%3e%3c/path%3e%3cpath%20fill='%23ff7043'%20d='M32,17h-7V3h7c3.866,0,7,3.134,7,7v0C39,13.866,35.866,17,32,17z'%3e%3c/path%3e%3ccircle%20cx='32'%20cy='24'%20r='7'%20fill='%2329b6f6'%3e%3c/circle%3e%3c/svg%3e" alt="Figma" class="w-10 h-10" />
+          </div>
+          <div class="skill-label">Figma</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<!-- Projects -->
+<section id="projects" class="max-w-6xl mx-auto px-6 py-12 scroll-mt-20">
+  <h2 class="text-2xl font-semibold reveal mb-6">My Projects</h2>
+
+  <!-- Grid with 3 columns: each card will span 2 cols -->
+  <div class="grid md:grid-cols-3 gap-8">
+
+    <!-- Card (odd -> left) -->
+
+    
+    <article class="md:col-span-2 odd:md:col-start-1 even:md:col-start-2 rounded-2xl p-6 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 shadow-lg transition-transform transform hover:-translate-y-1">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold">TextTalk</h3>
+        <span class="text-edgeMuted text-sm">AI · gTTS</span>
+      </div>
+      <p class="mt-3 text-edgeMuted text-sm">PDF to audio converter with multilingual TTS and desktop + web apps.</p>
+      <div class="mt-5 flex flex-wrap gap-2">
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">Python</span>
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">Flask</span>
+      </div>
+      <div class="mt-6 flex justify-center gap-6 text-sm">
+        <a href="https://github.com/rvhariharan/pdf-to-audio" target="_blank" class="text-orange-500 hover:underline">GitHub</a>
+        <a href="https://pdf-to-audio-0kd4.onrender.com" class="text-orange-500 hover:underline">Live Demo</a>
+      </div>
+    </article>
+
+    <!-- Card (even -> right) -->
+    <article class="md:col-span-2 odd:md:col-start-1 even:md:col-start-2 rounded-2xl p-6 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 shadow-lg transition-transform transform hover:-translate-y-1">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold">Naren Swadeshi</h3>
+        <span class="text-edgeMuted text-sm">VB.Net · C# · SQL</span>
+      </div>
+      <p class="mt-3 text-edgeMuted text-sm">Standalone desktop application for prepaid student transactions with billing and reports.</p>
+      <div class="mt-4 flex gap-2">
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">VB.Net</span>
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">C#</span>
+      </div>
+      <div class="mt-6 flex justify-center gap-6 text-sm">
+        <a href="https://github.com/rvhariharan/" target="_blank" class="text-orange-500 hover:underline">GitHub</a>
+        <a href="#" class="text-orange-500 hover:underline">Live Demo</a>
+      </div>
+    </article>
+
+    <!-- Card (odd -> left) -->
+    <article class="md:col-span-2 odd:md:col-start-1 even:md:col-start-2 rounded-2xl p-6 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 shadow-lg transition-transform transform hover:-translate-y-1">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold">B-Devs CSS</h3>
+        <span class="text-edgeMuted text-sm">CSS · Responsive</span>
+      </div>
+      <p class="mt-3 text-edgeMuted text-sm">Accessible responsive components and layouts.</p>
+      <div class="mt-4 flex gap-2">
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">CSS</span>
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">JavaScript</span>
+      </div>
+      <div class="mt-6 flex justify-center gap-6 text-sm">
+        <a href="https://github.com/rvhariharan/B-devs" target="_blank" class="text-orange-500 hover:underline">GitHub</a>
+        <a href="#" class="text-orange-500 hover:underline">Live Demo</a>
+      </div>
+    </article>
+
+    <!---- Card (even -> right) -->
+        <article class="md:col-span-2 odd:md:col-start-1 even:md:col-start-2 rounded-2xl p-6 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 shadow-lg transition-transform transform hover:-translate-y-1">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold">School Management System </h3>
+        <span class="text-edgeMuted text-sm">Js</span>
+      </div>
+      <p class="mt-3 text-edgeMuted text-sm">Managei </p>
+      <div class="mt-4 flex gap-2">
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">CSS</span>
+        <span class="px-2 py-1 bg-white/5 rounded text-xs">JavaScript</span>
+      </div>
+      <div class="mt-6 flex justify-center gap-6 text-sm">
+        <a href="#" target="_blank" class="text-orange-500 hover:underline">GitHub</a>
+        <a href="#" class="text-orange-500 hover:underline">Live Demo</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+    <!-- Timeline / Experience -->
+    <section id="Experience" class="max-w-6xl mx-auto px-6 py-12 scroll-mt-20">
+      <h2 class="text-2xl font-semibold reveal">Experience</h2>
+      <ol class="mt-6 border-l border-white/6 pl-6 space-y-6">
+   <li class="reveal">
+  <div class="text-edgeOrange font-semibold">Internship</div>
+  <div class="font-medium">Viswa Digital Technology (Remote)</div>
+  <div class="text-edgeMuted text-sm mt-1">
+    Web Design Intern • May 2025
+  </div>
+</li>
+
+   <li class="reveal">
+  <div class="text-edgeOrange font-semibold">Internship</div>
+  <div class="font-medium">Arttifial Tech (Remote)</div>
+  <div class="text-edgeMuted text-sm mt-1">
+    Game Development • May 2025
+  </div>
+</li>
+      </ol>
+    </section>
+
+    <!-- Contact -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<section id="contact" class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 scroll-mt-20">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+    <!-- left: form -->
+    <div class="md:col-span-2 reveal min-w-0">
+      <h2 class="text-2xl sm:text-2xl font-semibold">Contact</h2>
+      <p class="text-edgeMuted mt-2 text-sm sm:text-base">Here are my contact details; you can reach out to me through them.</p>
+
+      <form id="contactForm" class="mt-6 grid sm:grid-cols-2 gap-4">
+        <input name="name" class="w-full p-3 rounded bg-white/4 border border-white/6 text-edgeOrange" placeholder="Your name" required />
+        <input name="email" class="w-full p-3 rounded bg-white/4 border border-white/6 text-edgeOrange" type="email" placeholder="Email" required />
+        <textarea name="message" class="w-full p-3 rounded bg-white/4 border border-white/6 sm:col-span-2 text-edgeOrange" rows="4" placeholder="Message"></textarea>
+        <button type="submit" class="w-full sm:col-span-2 px-5 py-3 rounded bg-edgeOrange text-white font-semibold hover:bg-orange-500 transition">Send message</button>
+      </form>
+    </div>
+
+    <!-- right: aside -->
+    <aside class="rounded-2xl p-4 edge-acrylic border border-white/6 reveal hover:border-edgeOrange/15 transition min-w-0 md:mt-0 mt-6">
+      <div class="font-semibold">Quick links</div>
+      <div class="mt-3 text-sm text-edgeMuted space-y-2">
+        <div><i class="fa-solid fa-phone"></i> <a href ="tel:+917639554251">+91 7639554251</a></div>
+        <div><i class="fa-solid fa-envelope"></i> <a href ="mailto:rvhariharan2004@gmail.com">rvhariharan2004@gmail.com</a></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+
+    <!-- Footer -->
+    <footer class="border-t border-white/6 py-8">
+      <div class="max-w-6xl mx-auto px-6 flex items-center justify-between text-sm text-edgeMuted">
+        <div> &copy; <span id="year"></span> HARIHARAN R. All rights reserved.</div>
+        <div class="flex gap-4">
+          <a href="https://www.linkedin.com/in/hariharan-r-5812a02a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app " class="hover:text-white">LinkedIn</a>
+          <a href="https://github.com/rvhariharan/" class="hover:text-white">GitHub</a>
+        </div>
+      </div>
+    </footer>
+
+<script src="js/portfolio.js"></script>    
+</body>
+</html>
