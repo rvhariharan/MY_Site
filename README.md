@@ -1,27 +1,21 @@
-# 🌐 My Portfolio Website
+# React + Vite
 
-This is my personal portfolio website built using **HTML, Tailwind CSS, and JavaScript**.  
-It showcases my skills, projects, and contact information.  
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+<<<<<<< HEAD
 ## 🚀 Live Demo
 👉 [View My Portfolio](www.rvhariharan.tech)  
+=======
+Currently, two official plugins are available:
+>>>>>>> 3021376 (Refactor: Migrated project to React + Tailwind CSS)
 
-## 📂 Features
-- Responsive design for desktop and mobile 📱💻  
-- Smooth navigation and modern UI ✨  
-- Sections: Home, About, Skills, Projects, Experience, Contact  
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🛠️ Technologies Used
-- HTML5  
-- CSS3 (with Tailwind)  
-- JavaScript  
+## React Compiler
 
-## 📸 Preview
-![Portfolio Screenshot](assets/image/Screenshot_portfolio.png) 
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## 📬 Contact
-- Email: rvhariharan2004@gmail.com  
-- LinkedIn: [LinkedIn](https://www.linkedin.com/in/hariharan-r-5812a02a5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app)  
+## Expanding the ESLint configuration
 
-
----
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
