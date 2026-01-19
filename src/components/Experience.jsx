@@ -20,7 +20,7 @@ export default function Experience() {
         },
         {
             type: "Internship",
-            company: "Navi Promotions, Pariyakulam - Theni",
+            company: "Navi Promotions - Theni",
             live: "Live Internship",
             role: "React Developer",
             date: "Dec 2025 - Jan 2026",

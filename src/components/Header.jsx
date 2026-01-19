@@ -29,8 +29,8 @@ export default function Header() {
                             className="w-12 h-12 object-cover rounded-md border border-white/20 shadow-md"
                         />
                     </div>
-                    <a href="#hariharan" className="font-cinzel text-white text-xl font-bold">
-                        HAR<span className="text-edgeOrange">!</span>HARAN <span className="text-edgeOrange font-bold"> .</span>
+                    <a href="https://rvhariharan.tech" className="font-cinzel text-white text-xl font-bold">
+                        HAR<span className="text-edgeOrange">!</span>HARAN
                     </a>
                 </div>
 
@@ -47,7 +47,7 @@ export default function Header() {
                 <div className="hidden md:flex items-center gap-3">
                     <a
                         href="#contact"
-                        className="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition"
+                        className="text-sm text-orange-500 font-bold border border-white/20 px-4 py-2 rounded-full hover:bg-edgeOrange hover:text-white transition transition duration-500"
                     >
                         Get in touch
                     </a>

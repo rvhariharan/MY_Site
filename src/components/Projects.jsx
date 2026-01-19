@@ -58,11 +58,11 @@ export default function Projects() {
                             ))}
                         </div>
                         <div className="mt-6 flex justify-center gap-6 text-sm">
-                            <a href={proj.github} target="_blank" rel="noreferrer" className="text-orange-500 hover:underline">GitHub</a>
+                            <a href={proj.github} target="_blank" rel="noreferrer" className="text-orange-500 hover:text-orange-400">GitHub</a>
                             {proj.liveDisabled ? (
                                 <span className="text-gray-600 line-through cursor-not-allowed">Live Demo</span>
                             ) : (
-                                <a href={proj.live} target="_blank" rel="noreferrer" className="text-orange-500 hover:underline">Live Demo</a>
+                                <a href={proj.live} target="_blank" rel="noreferrer" className="text-orange-500 hover:text-orange-400">Live Demo</a>
                             )}
                         </div>
                     </article>

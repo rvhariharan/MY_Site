@@ -1,48 +1,66 @@
 import React from 'react';
 
 export default function Skills() {
+    const skills = [
+        { name: "HTML5", src: "/html5.svg" },
+        { name: "CSS3", src: "/css3.svg" },
+        { name: "JavaScript", src: "/js.svg" },
+        { name: "React.js", src: "/react.svg" },
+        { name: "Tailwind CSS", src: "/tailwind.svg" },
+        { name: "Node js", src: "/node-js.svg" },
+        { name: "C#", src: "/C_Sharp.svg" },
+        { name: "Php", src: "/php.svg" },
+        { name: "Bootstrap", src: "/bootstrap.svg" },
+        { name: "MongoDB", src: "/mongodb.svg" }
+    ];
+
+    const tools = [
+        { name: "Git", src: "/git.svg" },
+        { name: "GitHub", src: "/github.svg" },
+        { name: "VS Code", src: "/vs_code.svg" },
+        { name: "Visual studio", src: "/Visual_Studio.svg" },
+        { name: "Figma", src: "/figma.svg" },
+        { name: "Chat GPT", src: "/chat_gpt.svg" }
+    ];
+
     return (
         <section id="skills" className="mx-auto px-6 py-12 scroll-mt-20">
             <div className="max-w-6xl mx-auto px-4">
-                <h2 className="text-2xl font-semibold mb-6">Skills</h2>
+                <h2 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">My Expertise</h2>
 
-                <div className="skills-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
+                {/* Skills Section */}
+                <div className="mb-16">
+                    <h3 className="text-xl font-semibold mb-6 text-gray-200 border-l-4 border-orange-500 pl-3">Technical Skills</h3>
+                    <SkillsGrid items={skills} />
+                </div>
 
-                    {/* Column 1 */}
-                    <div className="skills-col flex flex-col items-center gap-4">
-                        <SkillItem name="HTML5" src="/html5.svg" />
-                        <SkillItem name="Tailwind CSS" src="/tailwind.svg" />
-                        <SkillItem name="Node js" src="/node-js.svg" />
-                        <SkillItem name="Chat GPT" src="/chat_gpt.svg" />
-                    </div>
-
-                    {/* Column 2 */}
-                    <div className="skills-col flex flex-col items-center gap-4">
-                        <SkillItem name="CSS3" src="/css3.svg" />
-                        <SkillItem name="React.js" src="/react.svg" />
-                        <SkillItem name="GitHub" src="/github.svg" />
-                        <SkillItem name="C#" src="/C_Sharp.svg" />
-                    </div>
-
-                    {/* Column 3 */}
-                    <div className="skills-col flex flex-col items-center gap-4">
-                        <SkillItem name="JavaScript" src="/js.svg" />
-                        <SkillItem name="Visual studio" src="/Visual_Studio.svg" />
-                        <SkillItem name="VS Code" src="/vs_code.svg" />
-                        <SkillItem name="Php" src="/php.svg" />
-                    </div>
-
-                    {/* Column 4 */}
-                    <div className="skills-col flex flex-col items-center gap-4">
-                        <SkillItem name="Bootstrap" src="/bootstrap.svg" />
-                        <SkillItem name="MongoDB" src="/mongodb.svg" />
-                        <SkillItem name="Git" src="/git.svg" />
-                        <SkillItem name="Figma" src="/figma.svg" />
-                    </div>
-
+                {/* Tools Section */}
+                <div>
+                    <h3 className="text-xl font-semibold mb-6 text-gray-200 border-l-4 border-green-500 pl-3">Tools</h3>
+                    <SkillsGrid items={tools} />
                 </div>
             </div>
         </section>
+    );
+}
+
+function SkillsGrid({ items }) {
+    // Distribute items into 4 columns to match the CSS animation structure
+    const columns = [[], [], [], []];
+    items.forEach((item, index) => {
+        columns[index % 4].push(item);
+    });
+
+    return (
+        <div className="skills-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
+            {columns.map((colItems, colIndex) => (
+                <div key={colIndex} className="skills-col flex flex-col items-center gap-4 sway">
+                    {colItems.map((item) => (
+                        <SkillItem key={item.name} name={item.name} src={item.src} />
+                    ))}
+                </div>
+            ))}
+        </div>
     );
 }
 
