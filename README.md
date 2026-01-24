@@ -4,7 +4,7 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
 <<<<<<< HEAD
 ## 🚀 Live Demo
-👉 [View My Portfolio](www.rvhariharan.tech)  
+👉 [View My Portfolio](rvhariharan.tech)  
 =======
 Currently, two official plugins are available:
 >>>>>>> 3021376 (Refactor: Migrated project to React + Tailwind CSS)
