@@ -22,9 +22,9 @@ export default function Projects() {
         },
         {
             title: "Theni Shops",
-            subtitle: "React.js · Tailwind CSS",
+            subtitle: "React.js · Tailwind",
             desc: "A local business directory and e-commerce platform for Theni district only for Mobile responsive & Tablet responsive.",
-            tags: ["React", "Tailwind"],
+            tags: ["React", "Tailwind CSS"],
             github: "https://github.com/rvhariharan/Theni_Shops-",
             live: "https://rvhariharan.github.io/Theni_Shops-",
             liveDisabled: false
@@ -33,7 +33,7 @@ export default function Projects() {
             title: "SK Crane Services, Salem",
             subtitle: "Service Website",
             desc: "A responsive business website for crane rental services with contact integration.",
-            tags: ["JS", "CSS"],
+            tags: ["React", "Tailwind CSS"],
             github: "https://github.com/rvhariharan/SK_CRANE_Salem",
             live: "#",
             liveDisabled: true

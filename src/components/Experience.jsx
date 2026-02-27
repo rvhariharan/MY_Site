@@ -23,7 +23,7 @@ export default function Experience() {
             company: "Navi Promotions - Theni",
             live: "Live Internship",
             role: "React Developer",
-            date: "Dec 2025 - Jan 2026",
+            date: "Dec 2025 - Apr 2026",
             desc: "Developed dynamic front-end components and managed live deployment."
         }
     ];
@@ -43,7 +43,7 @@ export default function Experience() {
 
                         {/* 1. Date/Role Column (Left on Desktop, Top on Mobile) */}
                         <div className="md:w-1/4 md:pt-2 md:text-right">
-                            <span className="block text-xl md:text-2xl font-courier font-bold text-white/30 group-hover:text-edgeOrange/80 transition-colors duration-500 leading-tight">
+                            <span className="block text-xl md:text-2xl font-courier font-bold text-white group-hover:text-edgeOrange/80 transition-colors duration-500 leading-tight">
                                 {exp.role}
                             </span>
                             <div className="text-xs md:text-sm text-edgeMuted mt-1 font-courier">{exp.date}</div>
