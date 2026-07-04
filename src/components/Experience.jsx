@@ -9,6 +9,7 @@ export default function Experience() {
             role: "Web Design Intern",
             date: "May 2025",
             desc: "Worked on UI/UX principles and designing responsive web layouts."
+            //certLink: "#" // Add your certificate link here
         },
         {
             type: "Internship",
@@ -17,14 +18,25 @@ export default function Experience() {
             role: "Game Development",
             date: "May 2025",
             desc: "Explored game mechanics and basic development concepts."
+            //certLink: "#" // Add your certificate link here
         },
         {
             type: "Internship",
             company: "Navi Promotions - Theni",
             live: "Live Internship",
             role: "React Developer",
-            date: "Dec 2025 - Apr 2026",
+            date: "Dec 2025 - Mar 2026",
             desc: "Developed dynamic front-end components and managed live deployment."
+            //certLink: "#" Add your certificate link here
+        },
+        {
+            type: "Training",
+            company: "Capgemini - Chennai",
+            live: "Live Training",
+            role: "Intelligent Supply Chain Operations",
+            date: "Mar 2026 - May 2026",
+            desc: " Where I learn Invoice Checking, Procurement, Logistics & Warehouse Management.",
+            certLink: "https://www.edubridgeindia.com/certificate-detail?enrollment_number=EBEON04261312454" // Add your certificate link here
         }
     ];
 
@@ -43,9 +55,9 @@ export default function Experience() {
 
                         {/* 1. Date/Role Column (Left on Desktop, Top on Mobile) */}
                         <div className="md:w-1/4 md:pt-2 md:text-right">
-                            <span className="block text-xl md:text-2xl font-courier font-bold text-white group-hover:text-edgeOrange/80 transition-colors duration-500 leading-tight">
+                            <a href={exp.certLink} target="_blank" rel="noopener noreferrer" className="block text-xl md:text-2xl font-courier font-bold text-white group-hover:text-edgeOrange/80 transition-all duration-500 leading-tight">
                                 {exp.role}
-                            </span>
+                            </a>
                             <div className="text-xs md:text-sm text-edgeMuted mt-1 font-courier">{exp.date}</div>
                         </div>
 

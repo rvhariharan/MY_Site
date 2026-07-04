@@ -32,8 +32,8 @@ export default function About() {
                     <div className="font-semibold">Quick info</div>
                     <ul className="mt-3 text-sm text-edgeMuted space-y-2">
                         <li>Location: Trichy, India</li>
-                        <li>Focus: Web Design, UI/UX, React Developer</li>
-                        <li>Company : <span className='uppercase'>Har! H!gh Tech</span></li>
+                        <li>Focus: Web Development, UI/UX</li>
+                        <li>Company : <span className='uppercase'>Navi Promotions</span></li>
                     </ul>
                 </aside>
             </div>
